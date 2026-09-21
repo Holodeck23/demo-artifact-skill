@@ -44,6 +44,18 @@ git clone https://github.com/Holodeck23/demo-artifact-skill
 cp -R demo-artifact-skill/project-to-portfolio ~/.claude/skills/
 cp -R demo-artifact-skill/demo-artifact        ~/.claude/skills/
 ```
+
+Or symlink them instead of copying, so `git pull` updates the installed skill and there is
+only ever one copy to keep straight:
+
+```bash
+ln -s "$PWD/demo-artifact-skill/project-to-portfolio" ~/.claude/skills/project-to-portfolio
+ln -s "$PWD/demo-artifact-skill/demo-artifact"        ~/.claude/skills/demo-artifact
+```
+
+Symlinking is worth preferring. A copied skill quietly becomes a fork: you tweak the installed
+one, the repo drifts behind it, and the two disagree for months without anything complaining.
+
 Restart Claude Code. They work as project-level skills too — `.claude/skills/` inside a repo
 behaves the same way and travels with the repo.
 
