@@ -16,9 +16,34 @@
  *
  * Exits non-zero on any FAIL. WARN lines are reported and do not fail.
  */
-import { chromium } from 'playwright'
 import path from 'node:path'
 import { pathToFileURL } from 'node:url'
+import { createRequire } from 'node:module'
+
+// Playwright is resolved leniently on purpose. This script usually lives in an
+// installed skill directory, so a bare `import 'playwright'` resolves from THERE
+// and ignores an install sitting in the project you are actually checking.
+// Try the script's own tree first, then the current working directory.
+const loadChromium = async () => {
+  try {
+    return (await import('playwright')).chromium
+  } catch (e) {
+    if (e?.code !== 'ERR_MODULE_NOT_FOUND') throw e
+  }
+  try {
+    const reqFromCwd = createRequire(path.join(process.cwd(), 'noop.js'))
+    return (await import(pathToFileURL(reqFromCwd.resolve('playwright')).href)).chromium
+  } catch {}
+  console.error(
+    'check-render.mjs needs Playwright, and it was not found.\n\n' +
+    '  npm i playwright && npx playwright install chromium\n\n' +
+    'Run that in this directory (' + process.cwd() + ')\n' +
+    'or next to the script itself (' + path.dirname(new URL(import.meta.url).pathname) + ').\n' +
+    'Either location works. check-links.py needs nothing and runs already.'
+  )
+  process.exit(2)
+}
+const chromium = await loadChromium()
 
 const LARGE_PX = 24
 const LARGE_BOLD_PX = 18.66

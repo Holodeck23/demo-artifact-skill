@@ -71,8 +71,14 @@ python3 project-to-portfolio/scripts/check-links.py  <project>/index.html <proje
 node    project-to-portfolio/scripts/check-render.mjs <project>/index.html <project>/demo/index.html --width 390,1280
 ```
 
-`check-render.mjs` needs Playwright (`npm i playwright && npx playwright install chromium`).
-`check-links.py` needs nothing.
+`check-links.py` needs nothing — it's stdlib only and runs the moment you've cloned this.
+
+`check-render.mjs` needs Playwright:
+```bash
+npm i playwright && npx playwright install chromium
+```
+Run that either in the project you're checking or next to the script; it looks in both. If
+Playwright is missing it says so in one line rather than throwing a stack trace at you.
 
 It catches three things reading the code cannot: a CSS specificity collision where
 `.navlinks a` silently beats `.btn-dark`, contrast measured against the *resolved* ancestor

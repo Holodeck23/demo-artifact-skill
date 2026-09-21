@@ -138,8 +138,9 @@ python3 scripts/check-links.py <project>/index.html <project>/demo/index.html
 node scripts/check-render.mjs <project>/index.html <project>/demo/index.html --width 390,1280
 ```
 
-`check-render.mjs` needs Playwright: `npm i playwright && npx playwright install chromium`.
-`check-links.py` is stdlib-only and needs nothing.
+`check-links.py` is stdlib-only and needs nothing. `check-render.mjs` needs Playwright
+(`npm i playwright && npx playwright install chromium`) — installed either in the project
+being checked or beside the script; it resolves from both, and names the fix if it is absent.
 
 | # | Check | Mechanism |
 |---|---|---|
