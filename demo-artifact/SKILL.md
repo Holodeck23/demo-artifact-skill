@@ -1,29 +1,28 @@
 ---
 name: demo-artifact
 description: >
-  The self-contained HTML shipping standard for every demo, landing page, dashboard,
-  one-pager, pitch doc, report, or shareable client deliverable. Fires AUTOMATICALLY
-  whenever a session is about to build any single-page HTML artifact meant to be shared
-  or shown — you should never have to invoke it by name. Output is ONE .html file with
-  embedded CSS/JS, zero external dependencies, that opens correctly from a file://
-  double-click with the network OFF, and looks studio-grade: warm-dark or bone palette,
-  one-token theming, condensed period-per-line hero.
+  Package a demo, landing page or shareable single-page artifact as self-contained HTML
+  with embedded assets and an offline core experience. Use for portable HTML deliverables
+  or alongside project-to-portfolio. Preserve an existing website's stack and the user's
+  chosen visual direction; this skill governs packaging and verification, not a fixed look.
 ---
 
 # Demo Artifact — the self-contained HTML standard
 
-The rule: every deliverable leaves your hands as a single `.html` file. Not a link,
-not a Notion page, not a Google Doc. A file that works offline, never goes down, and opens
-instantly on any device. This skill makes that the default.
+For a portable HTML deliverable, ship one `.html` with inline CSS, script and assets.
+Its core experience must work from disk without a network. This does not replace a
+requested document format or force a framework website into a single file. Follow the
+user's requested delivery surface and the workspace's canonical save locations.
 
-## Fire automatically
-Any time the session builds a demo, landing page, hero, dashboard, one-pager, pitch,
-capability showcase, audit/report, or "share this with a client" artifact. No invocation
-needed. If a separate aesthetics/design skill is also active: **that one governs the look,
-this one governs packaging and the offline guarantee.** They don't compete.
+## Pair with design, not a fixed aesthetic
+If an aesthetics/design skill is active, it governs the look; this skill governs packaging
+and the offline guarantee. The assets below are starting points, not proof of design
+quality. Choose type, hierarchy and copy for the product and audience. A page should have
+one clear promise, an observable payoff and an obvious next action.
 
-## Start from a scaffold (don't hand-roll structure)
-`assets/` holds four building blocks — fork, don't rebuild:
+## Reuse the useful parts of a scaffold
+`assets/` holds four building blocks. Reuse a matching one for new work; preserve useful
+structure in an existing artifact rather than replacing it to match a template:
 
 | Asset | Use for |
 |-------|---------|
@@ -32,7 +31,7 @@ this one governs packaging and the offline guarantee.** They don't compete.
 | `hero-template.html` | the condensed period-per-line hero + feature/steps/CTA sections |
 | `design-tokens.css` | the token system + collision-checked accent presets |
 
-Rule of thumb: **impressing → dark. Informing → light.** Fork one, rename it
+The light and dark treatments are options, not purpose-based requirements. Fork one, name it
 `product-name-v1.html`, change the `PRODUCT_SLUG` string near the top of the `<script>`
 (it isolates the localStorage keys), then replace content and delete sections you don't need.
 Restraint matters: use four or five section types, not all of them.
@@ -42,40 +41,48 @@ product called Meridian. It is there to show the shape, not to be kept. Replace 
 
 ## The rules this skill enforces (encode these, don't just link)
 
-**(a) Single self-contained file.** One `.html`, all CSS/JS inline. No CDN links, no
-analytics, no external fonts, no external images. Inline SVG and `data:` URIs are fine;
-external `http(s)://` URLs are not.
+**(a) Self-contained core.** For portable output, use one `.html` with inline CSS/JS,
+embedded fonts and images or inline SVG. No runtime CDN dependencies. Outbound anchors
+are allowed; they are not offline resources. Preserve authorized hosted integrations
+where required, ensure the core works without them and do not make blanket privacy
+claims contradicted by analytics or other requests.
 
-**(b) Theme by swapping ONE token.** All color lives in the `:root` block of the embedded
-`design-tokens.css`. Change exactly one line to rebrand:
+**(b) Theme with semantic tokens.** Centralize palette values in `:root`. The supplied
+scaffold can be rebranded with one primary token:
 ```css
 --color-accent: #2D6EE8;   /* the only line you swap per product */
 ```
 Collision-checked presets (all safe against the locked AI-action yellow `#F0C040`):
 Signal blue `#2D6EE8` · Teal green `#1A9B62` · Violet `#7C3AED` · Cyan `#0891B2`.
-Never set the accent to yellow/orange or within 30 hue degrees of `#F0C040` — that hue is
-reserved for AI actions, so an accent near it makes "the machine did this" unreadable.
-Locked base tokens (do not touch): `--color-bg: #F5F0EB` (bone),
-`--color-text: #1A1A1A` (near-black), `--color-ai-action: #F0C040`.
+In this scaffold, yellow is reserved for AI actions; keep brand and state colors
+distinguishable. Those token values are a preset, not a universal brand requirement.
+Change the system deliberately when the product calls for it, then remeasure contrast.
 
-**(c) Hero = condensed, period-per-line, 3 colors.** Barlow Condensed ExtraBold, 64px+,
-one period-terminated line each, exactly three colors (line 1 neutral, line 2 accent,
-line 3 outcome). One example:
+**(c) Headline follows the promise.** The supplied condensed, period-per-line hero is
+one option. Do not require a font, three lines, three colors or this sentence structure
+on every product. Its example:
 ```
 ONE DASHBOARD.   ← bone/white (the thing)
 EVERY GUEST.     ← accent      (the scope)
 FULLY AUTOMATED. ← outcome color (what they get)
 ```
-The periods are visual anchors, not grammar — keep them. One accent word per section, not many.
+Replace example claims with supported benefits. For a product landing page, show the
+result of the promise near the headline; a list of capabilities is not a substitute.
 
-**(d) Warm palette baseline, never pure.** Dark = warm near-black `#0d0908` (add a radial
-vignette), light = bone `#f5f0e8`. Pure `#000` reads cold; pure `#fff` reads unfinished.
+**(d) Palette is a design choice.** The warm-dark and bone assets are useful presets.
+Preserve or evolve the product's identity when requested. Do not impose a light/dark
+treatment simply because the artifact is a demo or report.
 
-**(e) Finish gate — this IS the acceptance test.** The file must open correctly from a
-`file://` double-click with the network OFF. Before calling it done: `grep -n 'http' file.html`
-— every hit must be a comment, an SVG xmlns, or a `data:` URI, never a live-loaded resource.
-If it fails offline, it is not done. Actually turn the wifi off and open it once; a grep
-that passes and a page that renders are two different claims.
+**(e) Offline gate — necessary, not sufficient.** Open the file in a browser context
+with networking disabled and exercise its core journey. Capture failed requests and
+JavaScript errors. Prefer a per-context offline setting; do not turn off the user's
+machine-wide Wi-Fi. Search source for external resources as a supplement, distinguishing
+anchors and license URLs from live-loaded dependencies.
+
+Passing offline rendering does not establish interaction quality. Every apparent control
+must work within the agreed scope, be clearly unavailable, or be removed. A screenshot,
+composer-shaped rectangle or success message alone is not a working demo. If paired with
+`project-to-portfolio`, use its interaction contract and demo-acceptance reference.
 
 **(f) Outbound links/CTAs — real anchors, never `window.open()`.** When the file is hosted
 inside a sandboxed viewer (a Claude Artifact, an iframe embed, some email previewers), the
@@ -90,7 +97,8 @@ deck and the button was dead for everyone who touched it.
 (`'Barlow Condensed','Arial Narrow',system-ui,sans-serif`) and ship zero webfonts, on
 purpose — a CDN font link breaks rule (a) quietly, because the page still renders, just in
 the wrong face. If you want the real Barlow Condensed, embed it as a base64 `@font-face`.
-Never re-add the `<link>`.
+Never re-add a runtime font `<link>` to portable output. Include embedded fonts' copyright
+and license text in the distributed artifact.
 
 ## Ship path (reference, don't automate)
 A finished single-file `index.html` is already deployable as-is: drag it into Netlify Drop,
@@ -109,12 +117,11 @@ Measured against WCAG AA on the assets as shipped:
 | `standalone-dark-scaffold.html` | muted text `#555250` on `#0d0d0d` is 2.5:1; accent CTAs (white on `#7B61FF`) are 4.2:1 |
 | `hero-template.html` | the hot-pink accent is the issue: white on `#FF2D78` is 3.56:1, pink on bone is 3.14:1 |
 
-These are palette-level, not layout bugs — raising them means changing the accent colours,
-which is a brand decision rather than a fix. Decide deliberately: either darken the accent
+These are palette-level, not layout bugs. Decide deliberately: either darken the accent
 until it clears 4.5:1, or reserve the accent for large text only (3:1) and keep body copy on
 the neutral tokens. What you must not do is ship it unmeasured and assume it is fine.
 
 ## Honest limit
-The scaffolds raise the floor, not the ceiling. They give structure, tokens, and the offline
-guarantee. They can't supply copy that earns the layout, or the restraint to delete sections
-you don't need — those come from reps.
+The scaffolds supply structure and tokens; only verification establishes the offline
+guarantee. Judge copy, usability and visual quality separately. In the handoff, name the
+environment actually tested and leave untested hosted behavior explicit.

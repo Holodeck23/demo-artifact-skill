@@ -73,8 +73,10 @@ Then let it do recon first. That's the part that feels skippable and isn't: the 
 writes a `recon.md` before it designs anything, because every rebuild in its history came
 from designing off a README instead of opening the actual thing.
 
-You'll get two files: `<project>/index.html` (the splash) and `<project>/demo/index.html`
-(the demo). If you only got one, the run isn't finished.
+For a new portfolio piece, the default is two files: `<project>/index.html` (the splash)
+and `<project>/demo/index.html` (the demo). An existing website or an explicit
+landing-only brief can use an embedded demo. The agreed visitor journey must work
+end to end in either format.
 
 ## Verifying before you send it
 
@@ -92,18 +94,27 @@ npm i playwright && npx playwright install chromium
 Run that either in the project you're checking or next to the script; it looks in both. If
 Playwright is missing it says so in one line rather than throwing a stack trace at you.
 
-It catches three things reading the code cannot: a CSS specificity collision where
+The render checker catches three things reading the code cannot: a CSS specificity collision where
 `.navlinks a` silently beats `.btn-dark`, contrast measured against the *resolved* ancestor
 background, and horizontal overflow at 390px.
 
-## The one rule that matters
+Those checks do not establish interaction quality. The pipeline now requires a
+visitor contract, an audit of every apparent control, behavior checks with visible
+results, and a separate check in the actual delivery environment.
+See [Demo acceptance](project-to-portfolio/references/demo-acceptance.md).
 
-Before you call it done: turn the wifi off, double-click both files, and click the
-"Launch the demo" button.
+## Before calling it done
 
-`grep -n 'http' yourfile.html` should only ever hit comments, SVG `xmlns` declarations, or
-`data:` URIs — never a live-loaded font, script, stylesheet or image. If it needs the
-network, it isn't finished.
+Use a browser context with networking disabled to open the portable file and
+complete the visitor journey. Do not disconnect the user's entire machine.
+
+Source searches can help find runtime dependencies, but distinguish outbound links
+and license notices from live-loaded fonts, scripts, stylesheets or images. Then
+test the actual hosted or embedded experience after authorized publishing; a local
+pass or HTTP 200 is not that test.
+
+Scaffold palettes and headline treatments are optional starting points. The
+product's audience, identity and supported promise should determine the design.
 
 ## Example copy warning
 

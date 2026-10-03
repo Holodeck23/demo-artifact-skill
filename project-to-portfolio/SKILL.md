@@ -2,9 +2,9 @@
 name: project-to-portfolio
 description: >
   Turn an existing project or repo into a shipped portfolio artifact — a splash page that
-  sells it PLUS a self-contained interactive demo. Always both files, never just the
-  landing page. Trigger on "put X in the portfolio", "build a demo for X", "make a
-  portfolio page for <project>", "turn this repo into a demo", or any request to present
+  sells it PLUS a self-contained interactive demo. Also improve an existing landing
+  page and embedded demo when that is the user's scope. Trigger on "put X in the portfolio", "build a demo for X", "make a
+  portfolio page for a project", "turn this repo into a demo", or any request to present
   something already built as a shareable, clickable thing. NOT for greenfield products —
   this skill's whole premise is that the artifact already exists and must be READ, not
   imagined.
@@ -16,23 +16,28 @@ description: >
 a splash that sells it, plus a self-contained interactive demo.
 
 This skill is the pipeline. `demo-artifact` is the packaging standard it hands off to for
-each of the two files. If you only have `demo-artifact` installed you will get a beautiful
-landing page and no demo — that is the wrong half.
+each agreed artifact. Packaging alone does not supply a usable demo; this pipeline
+connects the product evidence, visitor journey and verification.
 
 Evidence base: three full runs against real repos. Run 1 was rebuilt three times; runs 2
 and 3, with RECON done first, had zero rebuilds. That delta is the skill.
 
-## The deliverable — two files, always
+## Choose the deliverable from the brief
+
+For a new portfolio piece, the default is the two files below. For an existing website
+or an explicit landing-only brief, improve its existing route and embed the useful
+interactive slice there. Do not create a second demo route just to satisfy the default.
+Keep any established release links, hosting configuration and evidence boundaries.
 
 | File | What it is | Done when |
 |---|---|---|
 | `<project>/index.html` | splash — sells the thing, pushes into the demo | multiple "Launch the demo" CTAs (nav, hero, launch band, closing) |
 | `<project>/demo/index.html` | the demo — a working, clickable slice of the product | opens from `file://` with the network off and you can actually use it |
 
-**The demo is the deliverable. The splash is the wrapper.** If the session ends with one
-HTML file, the job is not done — no matter how good that file is. A splash page with a dead
-"Launch the demo" button is the single most common failure of this pipeline; check the button
-before you call it finished.
+**The visitor must reach a usable result.** A splash with a dead launch link is unfinished.
+A page with an embedded demo can be complete when it matches the brief and passes the
+same behavior checks. A result may be a local simulation, but label it plainly and make
+the promised slice work.
 
 ## The one failure this skill exists to prevent
 
@@ -57,22 +62,26 @@ exists.**
 
 **Before anything else — confirm the target is worth featuring.** Recon reads the disk, and
 the disk does not know who a project was built for or whether it should be seen publicly.
-Name the target and ask, in one line, before any design decision. An unattributed third-party
+Confirm the target from the user's request and context; ask only when it is unclear.
+An unattributed third-party
 brand in the source is a signal to ask, not a default to quietly neutralise. (One run was
 built end to end and then withdrawn: it was a throwaway for a named client, which no file on
 the machine recorded.)
 
-Write `<project>/recon.md` in the working directory. Required sections:
+Write `recon.md` in the workspace's canonical location for reports, with evidence beside
+it; record the code checkout separately. Use `<project>/recon.md` only where local rules
+allow reports in the project. Required sections:
 
-- **Locate everything.** The canonical repo plus every parked, archived or duplicated
-  sibling. One project is usually 4+ directories. List them all with paths.
+- **Locate the source.** Find the canonical repo and any relevant parked or duplicated
+  sibling before creating a checkout. Reuse the source; do not assume duplicates exist.
 - **The running artifact.** Screenshots in the repo, design explorations, a build output,
   or actually start it. Record **hex values and font stacks**. "Clean and modern" is not
   recon and does not satisfy this section.
 - **The full surface, from the code.** Enumerate every page/route from the router or route
   table (`routes.ts`, `App.tsx`, `urls.py`…) and list them in recon.md with what the demo
-  will cover. A screenshot in `assets/` is dated evidence, not the current UI — it can
-  predate a whole redesign. (One run built a single scrolling overview from a pre-SPA
+  will cover or deliberately omit. Scope the demo around a complete useful journey;
+  it need not reproduce the whole application. A screenshot in `assets/` is dated
+  evidence, not the current UI — it can predate a whole redesign. (One run built a single scrolling overview from a pre-SPA
   preview image; the live app had 11 routed pages.)
   The same holds below page level: any component the demo re-creates is rebuilt from its
   SOURCE file and its real name, never from its README. A README describes; the source is
@@ -85,9 +94,10 @@ Write `<project>/recon.md` in the working directory. Required sections:
   structure. Never infer X from a link.
 - **The data/domain layer.** Content libraries, domain tokens, migrations, seed data. The
   architecture story lives here, not in the README.
-- **The aesthetic question, asked explicitly.** "The app's own look, or the portfolio's?"
-  These conflict, the answer is not guessable, and for an older project the owner may not
-  want fidelity to what they built when less experienced. Ask; do not decide.
+- **The aesthetic direction.** Use the user's established choice when available.
+  Otherwise ask if product fidelity versus a new marketing identity would materially
+  change the work. State a direction and one memorable interaction; scaffolds do not
+  determine the palette, typography or headline.
 - **Original language.** If the product is not English-first, the demo opens in its original
   language with a working toggle. Translating it to English flattens the local specificity
   that is often the entire differentiator.
@@ -99,25 +109,32 @@ One non-obvious decision worth showing. Not "I built an app" — the decompositi
 > Example, from a contract-drafting tool: *the model never writes the contract; it picks a
 > posture and the text is retrieved.*
 
-Test: can it be said in one sentence that would make a peer engineer raise an eyebrow? If
-not, go back to the domain layer — the thesis is in there.
+Name the audience and the result they care about. An engineering portfolio may lead with
+the structural decision; a product landing page should lead with the visitor's problem
+and show its resolution. Map each important promise to a working interaction or real
+product evidence. Do not use repeated abstract slogans in place of that connection.
 
-## Phase 2 — BUILD (both files, in this order)
+## Phase 2 — BUILD (the agreed surface)
 
 Build the **demo first**. It is the hard half and the thing being sold; a splash written
 before the demo exists ends up promising something the demo does not do.
 
 - **demo** — one self-contained HTML. Seeded data, no backend, no keys, no model call.
-  Opens from `file://` with the network off. Cover the routes recon enumerated, not just
-  the one you have a screenshot of.
+  Opens from `file://` with the network off. Cover the journey agreed in recon, using
+  current source for the relevant controls and states.
 - **splash** — a marketing page that sells and pushes into the product. Multiple "Launch
   the demo" CTAs. NOT a case study with a provenance section; that reads as an academic
   exercise.
 - Wear the product's own skin so launching feels like entering the product.
 - Architecture section: **only when the thesis is structural.** Do not force it.
 
-Both files follow the `demo-artifact` packaging standard: single file, everything inline,
-no CDN, no external fonts, works offline.
+Each portable artifact follows the `demo-artifact` packaging standard: single file,
+everything inline, no CDN or runtime font downloads, works offline.
+
+For any interactive work, read [Demo acceptance](references/demo-acceptance.md) before
+building and again before declaring completion. Write a short interaction contract:
+visitor action → visible result → state that persists → reset behavior. Remove apparent
+controls that the scoped demo does not support, or label them clearly as unavailable.
 
 ## Phase 3 — HONESTY PASS (non-negotiable; it is the credibility move)
 
@@ -129,7 +146,7 @@ Cross-tab the real data, find a genuine gap, put it on the page.
 Naming your own gap reads as someone who understands their system. Never manufacture a fake
 weakness, and never soften a real one into a feature.
 
-## Phase 4 — VERIFY (scripted, not eyeballed; re-run after ANY restyle)
+## Phase 4 — VERIFY (behavior, rendering and delivery are separate)
 
 Both scripts ship with this skill, in `scripts/`.
 
@@ -151,6 +168,19 @@ being checked or beside the script; it resolves from both, and names the fix if 
 | 5 | Full interaction run, programmatic, **against the deployed URL** — not localhost | manual/Playwright, per demo |
 | 6 | The splash's "Launch the demo" CTA actually opens the demo | click it, in the place it will be viewed |
 
+These scripts prove only the properties they measure. Neither is an interaction test,
+and neither certifies that the demo is useful or that the deployed page matches the file.
+Build on the project's existing browser harness to exercise the interaction contract
+from the visitor's entry point. Assert observable results, denial/cancel behavior,
+cross-view persistence and reset. Inspect every apparent control, including decorative
+elements that selectors for buttons would miss. Visually inspect the result on narrow
+and wide screens, then repeat the same journey in the actual delivery context.
+
+Report each result with its environment: offline file, local HTTP, hosted preview or
+production. If publishing is not authorized, finish the local work and explicitly leave
+production verification open. Re-run the relevant gates after changes; do not describe
+a few passing clicks as an unqualified "interactive pass".
+
 Check 2 is the one that cannot be caught by reading: `.navlinks a` beats `.btn-dark`, and the
 CSS reads correctly in isolation. It shipped in two separate runs.
 
@@ -159,8 +189,9 @@ CSS reads correctly in isolation. It shipped in two separate runs.
 
 ## Phase 5 — SHIP
 
-Deploy, wire up whatever index or portfolio links to it, then **confirm the live URL by
-fetching it**. Never quote a URL you have not curled.
+When publishing is authorized, deploy, wire up the agreed index or portfolio links, then
+confirm the live URL and run the same visitor journey there. An HTTP 200 only proves
+retrievability. Keep source commits, pushes and live deployment distinct in the handoff.
 
 Host-specific things that have bitten this pipeline, worth checking on yours:
 
@@ -182,4 +213,4 @@ Host-specific things that have bitten this pipeline, worth checking on yours:
   methods for greenfield.
 - **Architecture section only when the thesis is structural.**
 - **Non-English products open in their original language,** with a working toggle.
-- **Two files or it is not done.**
+- **The agreed journey must work end to end, whether embedded or on its own route.**
