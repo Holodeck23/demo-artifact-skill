@@ -27,6 +27,12 @@ HTML; self-contained packaging does not require a hand-drawn imitation. Compare 
 result against the product, and assess reading size at the final embed width, not just
 on a full-screen development canvas. Reflow or offer an expanded view instead of shrinking
 the whole interface to make it fit.
+Real UI components do not make the sample content compelling on their own. If the existing
+fixture is only a counter or other test probe, design a small, believable visitor scenario
+around the product's actual promise. Give the visitor an action that changes something
+visible, carry that context into the next step, and label scripted behavior honestly.
+Keep sample-app state and reset behavior explicit, especially when an embedded preview
+is recreated as the visitor changes views.
 
 ## Reuse the useful parts of a scaffold
 `assets/` holds four building blocks. Reuse a matching one for new work; preserve useful

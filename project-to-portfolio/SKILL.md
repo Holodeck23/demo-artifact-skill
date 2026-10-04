@@ -118,6 +118,17 @@ Name the audience and the result they care about. An engineering portfolio may l
 the structural decision; a product landing page should lead with the visitor's problem
 and show its resolution. Map each important promise to a working interaction or real
 product evidence. Do not use repeated abstract slogans in place of that connection.
+If the product's own seed or onboarding fixture is a developer smoke test, do not make
+that fixture the public demo's story by default. Preserve the real product controls and
+visual language, but seed a coherent visitor-facing project: a recognizable task, an
+action the visitor can take, a visible change in the artifact, and a next step that uses
+the same context. State clearly which data and responses are simulated. The tour should
+react to the visitor's result, not only advance through instructions on Next.
+
+When the page needs a full feature inventory, scope it to the build visitors can
+download. Cross-check the tagged guide and release notes; keep features still on a
+development branch out of the shipped list. Put a scannable entry point on the page and
+maintain the long list from one source so the count and copy cannot drift apart.
 
 ## Phase 2 — BUILD (the agreed surface)
 

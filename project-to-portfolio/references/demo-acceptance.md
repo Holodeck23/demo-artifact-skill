@@ -14,6 +14,10 @@ Choose one useful journey grounded in the real product. Record:
 - The observable result of each action.
 - State that survives navigation, state requiring explicit save, and what resets it.
 - Which parts are simulated, which are screenshots and which are actually connected.
+- Whether the sample content gives a visitor a reason to care about the action. A
+  development smoke fixture can pass every click assertion while still hiding the
+  product's value. If the fixture is not representative, create a coherent sample task
+  and make the guide respond to the visitor's visible result.
 
 An illustrative contract for a coding workspace:
 
