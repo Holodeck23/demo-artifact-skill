@@ -20,6 +20,14 @@ and the offline guarantee. The assets below are starting points, not proof of de
 quality. Choose type, hierarchy and copy for the product and audience. A page should have
 one clear promise, an observable payoff and an obvious next action.
 
+For an existing product, its observed identity takes precedence over an aesthetic skill's
+default treatment. Inspect actual screenshots and components before choosing typography
+or a demo layout. When practical, bundle the real UI with isolated sample data into the
+HTML; self-contained packaging does not require a hand-drawn imitation. Compare the
+result against the product, and assess reading size at the final embed width, not just
+on a full-screen development canvas. Reflow or offer an expanded view instead of shrinking
+the whole interface to make it fit.
+
 ## Reuse the useful parts of a scaffold
 `assets/` holds four building blocks. Reuse a matching one for new work; preserve useful
 structure in an existing artifact rather than replacing it to match a template:

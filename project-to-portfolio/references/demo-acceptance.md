@@ -30,6 +30,25 @@ An illustrative contract for a coding workspace:
 Use only rows relevant to the product. Do not turn this example into a requirement
 that every demo needs files, workflows or approvals.
 
+## Establish product fidelity first
+
+Inspect the product's screenshots as images and the source for the states being shown.
+Keep reference captures beside the demo captures and compare like states at comparable
+viewport sizes: navigation, panel proportions, typography, density, controls and the
+actual sample/result. Adding real screenshots below an invented demo does not establish
+fidelity. Prefer reuse of production components/styles with local adapters when practical.
+
+Document intended differences such as synthetic data and larger reading sizes. A mobile
+demo may show one pane at a time rather than miniaturizing a desktop UI; the action's
+result must remain visible and the return path obvious. Test the actual embed width and
+any expanded view, including closing it with the keyboard.
+
+When reusing application code, isolate its storage and replace API/native bridges at
+build time. Ensure no real command, provider, filesystem or account request can escape
+the simulation. Unsupported operations should explain their limit when invoked. Test
+forms inside the final iframe sandbox: a component can render and accept clicks while
+the sandbox prevents its submit event, leaving Save or Run inert.
+
 ## Audit the apparent controls
 
 Inspect the rendered page, not just its button selectors. Account for tabs, chips,
@@ -68,6 +87,7 @@ or the payoff is on screen.
 | Render checks | The measured contrast, specificity and overflow properties |
 | Journey checks | The named behaviors in the tested environment |
 | Visual review | Legibility, hierarchy, discoverability and visible payoff |
+| Product fidelity | Rendered states match inspected product references, with deliberate deviations recorded |
 | Delivery check | The same journey works at the URL or embed the visitor receives |
 
 An HTTP 200, screenshot, completed click, local test, push or deployment command

@@ -115,6 +115,10 @@ pass or HTTP 200 is not that test.
 
 Scaffold palettes and headline treatments are optional starting points. The
 product's audience, identity and supported promise should determine the design.
+For an existing product, inspect its screenshots as images and compare the rendered
+demo against them. Reusing its components with a local data adapter is preferable to
+inventing a lookalike when practical. Check text at the real embed size; an expanded
+view or one-pane mobile layout is better than unreadable miniature UI.
 
 ## Example copy warning
 

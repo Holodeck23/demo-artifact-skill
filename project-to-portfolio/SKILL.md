@@ -77,6 +77,11 @@ allow reports in the project. Required sections:
 - **The running artifact.** Screenshots in the repo, design explorations, a build output,
   or actually start it. Record **hex values and font stacks**. "Clean and modern" is not
   recon and does not satisfy this section.
+  Open the screenshots as images, including the exact states the demo will show. A file
+  inventory or a screenshot gallery added to the landing page is not visual inspection.
+  Record the layout, panel proportions, type sizes, controls and state transitions for
+  those states. Prefer building a browser demo from the real components and styles with
+  a local data adapter when feasible; avoid maintaining an invented imitation beside them.
 - **The full surface, from the code.** Enumerate every page/route from the router or route
   table (`routes.ts`, `App.tsx`, `urls.py`…) and list them in recon.md with what the demo
   will cover or deliberately omit. Scope the demo around a complete useful journey;
@@ -175,6 +180,11 @@ from the visitor's entry point. Assert observable results, denial/cancel behavio
 cross-view persistence and reset. Inspect every apparent control, including decorative
 elements that selectors for buttons would miss. Visually inspect the result on narrow
 and wide screens, then repeat the same journey in the actual delivery context.
+Compare those rendered states beside the product references at comparable viewport sizes.
+List intentional deviations (sample data, larger text, narrow-screen layout) and resolve
+unintentional ones before claiming product fidelity. A passing interaction suite cannot
+overrule a visible mismatch with the app. Borrow a reference demo's interaction structure,
+not its unrelated brand or invented product content.
 
 Report each result with its environment: offline file, local HTTP, hosted preview or
 production. If publishing is not authorized, finish the local work and explicitly leave
